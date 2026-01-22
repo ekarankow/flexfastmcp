@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastmcp-openapi-middleware
+    environment:
+      # MCP Server Configuration
+      - MCP_PORT=${MCP_PORT:-3000}
+
+      # MCP Cache Configuration
+      - MCP_CACHE_MAX_SIZE=${MCP_CACHE_MAX_SIZE:-100}
+      - MCP_CACHE_TTL=${MCP_CACHE_TTL:-3600}
+      - MCP_CACHE_CLEANUP_INTERVAL=${MCP_CACHE_CLEANUP_INTERVAL:-300}
+
+    ports:
+      - "${MCP_PORT:-3000}:3000"
+
+    volumes:
+      # Mount local OpenAPI specs (optional, for reference)
+      - ./openapi.json:/app/openapi.json:ro
+
+    restart: unless-stopped
+
+    # Health check - test if server is responding
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; import sys; r = httpx.post('http://localhost:3000/messages', json={'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}, timeout=5.0); sys.exit(0 if r.status_code == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a sample API for testing
+  sample-api:
+    image: swaggerapi/petstore3:latest
+    container_name: petstore-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SWAGGER_BASE_PATH=/api/v3
+    profiles:
+      - with-sample-api
+
+networks:
+  default:
+    name: mcp-network
