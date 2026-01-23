@@ -22,7 +22,7 @@ pip install -e .
 
 REM Run the server
 echo.
-if not defined MCP_PORT set MCP_PORT=3000
+if not defined MCP_PORT set MCP_PORT=8080
 echo 🌐 Starting Middleware Server on port %MCP_PORT%...
 echo ===========================================
-python -m fastmcp_openapi
+python -m flexfastmcp

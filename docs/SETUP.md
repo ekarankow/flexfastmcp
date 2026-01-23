@@ -16,8 +16,8 @@ For development and testing:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/fastmcp-openapi.git
-cd fastmcp-openapi
+git clone https://github.com/yourusername/flexfastmcp.git
+cd flexfastmcp
 
 # Create virtual environment
 python3 -m venv venv
@@ -35,22 +35,22 @@ pip install -e ".[dev]"
 From PyPI (when published):
 
 ```bash
-pip install fastmcp-openapi
+pip install flexfastmcp
 
 # With optional performance improvements
-pip install fastmcp-openapi[performance]
+pip install flexfastmcp[performance]
 ```
 
 ### Method 3: Docker
 
 ```bash
 # Pull and run
-docker pull ghcr.io/yourusername/fastmcp-openapi:latest
-docker run -p 3000:3000 ghcr.io/yourusername/fastmcp-openapi
+docker pull ghcr.io/yourusername/flexfastmcp:latest
+docker run -p 8080:8080 ghcr.io/yourusername/flexfastmcp
 
 # Or build locally
-docker build -t fastmcp-openapi .
-docker run -p 3000:3000 fastmcp-openapi
+docker build -t flexfastmcp .
+docker run -p 8080:8080 flexfastmcp
 ```
 
 ## Configuration
@@ -61,7 +61,7 @@ Create a `.env` file in the project root:
 
 ```env
 # Server
-MCP_PORT=3000
+MCP_PORT=8080
 
 # Cache
 MCP_CACHE_MAX_SIZE=100
@@ -91,7 +91,7 @@ docker-compose up -d
 
 ```bash
 # Using module
-python -m fastmcp_openapi
+python -m flexfastmcp
 
 # Using script (Unix)
 ./scripts/run.sh
@@ -103,13 +103,13 @@ scripts\run.bat
 ### With Custom Port
 
 ```bash
-MCP_PORT=8080 python -m fastmcp_openapi
+MCP_PORT=8081 python -m flexfastmcp
 ```
 
 ### With Custom Configuration
 
 ```bash
-MCP_CACHE_MAX_SIZE=200 MCP_CACHE_TTL=7200 python -m fastmcp_openapi
+MCP_CACHE_MAX_SIZE=200 MCP_CACHE_TTL=7200 python -m flexfastmcp
 ```
 
 ## Verification
@@ -117,7 +117,7 @@ MCP_CACHE_MAX_SIZE=200 MCP_CACHE_TTL=7200 python -m fastmcp_openapi
 ### Check Server Status
 
 ```bash
-curl -X POST http://localhost:3000/messages \
+curl -X POST http://localhost:8080/messages \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc": "2.0",
@@ -147,7 +147,7 @@ pip install -e ".[dev]"
 pytest
 
 # Run with coverage
-pytest --cov=fastmcp_openapi --cov-report=html
+pytest --cov=flexfastmcp --cov-report=html
 
 # Run specific test
 pytest tests/test_cache.py -v
@@ -158,12 +158,12 @@ pytest tests/test_cache.py -v
 ### Port Already in Use
 
 ```bash
-# Check what's using port 3000
-lsof -i :3000  # Unix
-netstat -ano | findstr :3000  # Windows
+# Check what's using port 8080
+lsof -i :8080  # Unix
+netstat -ano | findstr :8080  # Windows
 
 # Use a different port
-MCP_PORT=3001 python -m fastmcp_openapi
+MCP_PORT=8081 python -m flexfastmcp
 ```
 
 ### Import Errors

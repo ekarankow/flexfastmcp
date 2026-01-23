@@ -1,3 +1,3 @@
 """
-Tests for fastmcp-openapi package
+Tests for flexfastmcp package
 """

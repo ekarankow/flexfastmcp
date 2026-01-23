@@ -20,6 +20,6 @@ pip install -r requirements.txt
 
 # Run the middleware server
 echo ""
-echo "🌐 Starting Middleware Server on port 3000..."
+echo "🌐 Starting Middleware Server on port 8080..."
 echo "==========================================="
-python fastmcp_openapi_middleware.py
+python flexfastmcp_middleware.py

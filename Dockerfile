@@ -28,7 +28,7 @@ RUN useradd -m -u 1000 mcpuser && chown -R mcpuser:mcpuser /app
 USER mcpuser
 
 # Expose MCP default port
-EXPOSE 3000
+EXPOSE 8080
 
 # Run the MCP middleware server
-CMD ["python", "-m", "fastmcp_openapi"]
+CMD ["python", "-m", "flexfastmcp"]

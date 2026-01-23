@@ -3,7 +3,7 @@ Tests for the MCP cache implementation
 """
 import pytest
 import asyncio
-from fastmcp_openapi.cache import MCPCache, CacheEntry
+from flexfastmcp.cache import MCPCache, CacheEntry
 
 
 @pytest.mark.asyncio

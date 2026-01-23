@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fastmcp-openapi"
+name = "flexfastmcp"
 version = "0.1.0"
 description = "A transparent proxy server for dynamically routing MCP protocol requests to OpenAPI-based services"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "FastMCP OpenAPI Team"}
+    {name = "FlexFastMCP Team"}
 ]
 keywords = ["mcp", "openapi", "fastmcp", "middleware", "proxy", "api"]
 classifiers = [
@@ -45,19 +45,19 @@ performance = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/fastmcp-openapi"
-Documentation = "https://github.com/yourusername/fastmcp-openapi#readme"
-Repository = "https://github.com/yourusername/fastmcp-openapi.git"
-Issues = "https://github.com/yourusername/fastmcp-openapi/issues"
+Homepage = "https://github.com/yourusername/flexfastmcp"
+Documentation = "https://github.com/yourusername/flexfastmcp#readme"
+Repository = "https://github.com/yourusername/flexfastmcp.git"
+Issues = "https://github.com/yourusername/flexfastmcp/issues"
 
 [project.scripts]
-fastmcp-openapi = "fastmcp_openapi.__main__:main"
+flexfastmcp = "flexfastmcp.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-fastmcp_openapi = ["py.typed"]
+flexfastmcp = ["py.typed"]
 
 [tool.black]
 line-length = 120

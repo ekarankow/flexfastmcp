@@ -433,7 +433,7 @@ mcp.add_middleware(FlexFastMCP())
 async def proxy_status() -> Dict[str, Any]:
     """Get proxy status including cache statistics"""
     return {
-        "type": "fastmcp_openapi_middleware",
+        "type": "flexfastmcp_middleware",
         "description": "Transparent proxy using FlexFastMCP middleware",
         "cache": _mcp_cache.stats()
     }

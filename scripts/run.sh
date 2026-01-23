@@ -24,6 +24,6 @@ pip install -e .
 
 # Run the server
 echo ""
-echo "🌐 Starting Middleware Server on port ${MCP_PORT:-3000}..."
+echo "🌐 Starting Middleware Server on port ${MCP_PORT:-8080}..."
 echo "==========================================="
-python -m fastmcp_openapi
+python -m flexfastmcp

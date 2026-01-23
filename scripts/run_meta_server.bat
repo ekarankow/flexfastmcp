@@ -20,6 +20,6 @@ if errorlevel 1 (
 
 REM Run the simplified meta server
 echo.
-echo Starting server on port 3000...
+echo Starting server on port 8080...
 echo ================================
 python meta_openapi_simple.py

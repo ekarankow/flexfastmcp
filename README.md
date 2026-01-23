@@ -18,8 +18,8 @@ A transparent proxy server that dynamically routes MCP (Model Context Protocol) 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/fastmcp-openapi.git
-cd fastmcp-openapi
+git clone https://github.com/yourusername/flexfastmcp.git
+cd flexfastmcp
 
 # Install in development mode
 pip install -e .
@@ -32,7 +32,7 @@ pip install -e ".[dev,performance]"
 
 ```bash
 # Using Python
-python -m fastmcp_openapi
+python -m flexfastmcp
 
 # Using the run script (Unix)
 ./scripts/run.sh
@@ -65,7 +65,7 @@ async def call_api():
         }
     }
 
-    async with httpx.AsyncClient(base_url="http://localhost:3000") as client:
+    async with httpx.AsyncClient(base_url="http://localhost:8080") as client:
         # List available tools
         response = await client.post('/messages', json={
             "jsonrpc": "2.0",
@@ -97,7 +97,7 @@ Environment variables:
 
 ```env
 # Server Configuration
-MCP_PORT=3000
+MCP_PORT=8080
 
 # Cache Configuration
 MCP_CACHE_MAX_SIZE=100
@@ -114,7 +114,7 @@ Base URL selection:
 ### Using `X-BASE-URL`
 
 ```bash
-curl -X POST http://localhost:3000/messages \
+curl -X POST http://localhost:8080/messages \
   -H "Content-Type: application/json" \
   -H "X-BASE-URL: https://api.example.com" \
   -d '{
@@ -130,7 +130,7 @@ curl -X POST http://localhost:3000/messages \
 ### Using `_meta.base_url`
 
 ```bash
-curl -X POST http://localhost:3000/messages \
+curl -X POST http://localhost:8080/messages \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc": "2.0",
@@ -148,9 +148,9 @@ curl -X POST http://localhost:3000/messages \
 ## Project Structure
 
 ```
-fastmcp-openapi/
+flexfastmcp/
 ├── src/
-│   └── fastmcp_openapi/
+│   └── flexfastmcp/
 │       ├── __init__.py       # Package exports
 │       ├── __main__.py       # Entry point
 │       ├── server.py         # Main middleware server
@@ -220,10 +220,10 @@ mypy src/
 
 ```bash
 # Build image
-docker build -t fastmcp-openapi .
+docker build -t flexfastmcp .
 
 # Run container
-docker run -p 3000:3000 -e MCP_CACHE_MAX_SIZE=200 fastmcp-openapi
+docker run -p 8080:8080 -e MCP_CACHE_MAX_SIZE=200 flexfastmcp
 
 # Using docker-compose
 docker-compose up

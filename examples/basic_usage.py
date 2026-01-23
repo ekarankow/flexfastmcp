@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Basic usage example for fastmcp-openapi
+Basic usage example for flexfastmcp
 Demonstrates how to use the middleware server with a simple OpenAPI spec
 """
 
@@ -36,7 +36,7 @@ TODO_API_SPEC = {
 
 async def main():
     """Demo the middleware server"""
-    base_url = "http://localhost:3000"
+    base_url = "http://localhost:8080"
 
     async with httpx.AsyncClient(base_url=base_url, timeout=30.0) as client:
         print("📋 FlexFastMCP OpenAPI Middleware - Basic Usage Example\n")
@@ -102,9 +102,9 @@ async def main():
 
 
 if __name__ == "__main__":
-    print("Make sure the server is running: python -m fastmcp_openapi\n")
+    print("Make sure the server is running: python -m flexfastmcp\n")
     try:
         asyncio.run(main())
     except httpx.ConnectError:
-        print("❌ Could not connect to server at localhost:3000")
-        print("   Start it with: python -m fastmcp_openapi")
+        print("❌ Could not connect to server at localhost:8080")
+        print("   Start it with: python -m flexfastmcp")
