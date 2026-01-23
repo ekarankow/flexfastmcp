@@ -477,7 +477,7 @@ atexit.register(cleanup)
 
 if __name__ == "__main__":
     import os
-    port = int(os.getenv("MCP_PORT", "3000"))
+    port = int(os.getenv("MCP_PORT", "8080"))
 
     logger.info("Starting FlexFastMCP")
     logger.info(f"Port: {port}")
