@@ -1,0 +1,97 @@
+### List tools using X-BASE-URL
+POST http://localhost:8080/messages
+Content-Type: application/json
+X-BASE-URL: https://api.example.com
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/list",
+  "params": {
+    "_meta": {
+      "openapi": {
+        "openapi": "3.0.0",
+        "info": { "title": "My API", "version": "1.0.0" },
+        "paths": {}
+      }
+    }
+  }
+}
+
+### Call a tool with an inline OpenAPI spec
+POST http://localhost:8080/messages
+Content-Type: application/json
+X-BASE-URL: https://api.example.com
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "listUsers",
+    "arguments": {},
+    "_meta": {
+      "openapi": {
+        "openapi": "3.0.0",
+        "info": { "title": "My API", "version": "1.0.0" },
+        "paths": {
+          "/users": {
+            "get": {
+              "operationId": "listUsers",
+              "summary": "List users"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+### List tools using _meta.base_url (no X-BASE-URL header)
+POST http://localhost:8080/messages
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/list",
+  "params": {
+    "_meta": {
+      "base_url": "https://api.example.com",
+      "openapi": {
+        "openapi": "3.0.0",
+        "info": { "title": "My API", "version": "1.0.0" },
+        "paths": {}
+      }
+    }
+  }
+}
+
+### Call a tool using _meta.baseurl (no X-BASE-URL header)
+POST http://localhost:8080/messages
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "listUsers",
+    "arguments": {},
+    "_meta": {
+      "baseurl": "https://api.example.com",
+      "openapi": {
+        "openapi": "3.0.0",
+        "info": { "title": "My API", "version": "1.0.0" },
+        "paths": {
+          "/users": {
+            "get": {
+              "operationId": "listUsers",
+              "summary": "List users"
+            }
+          }
+        }
+      }
+    }
+  }
+}

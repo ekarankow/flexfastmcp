@@ -91,6 +91,53 @@ async def call_api():
 asyncio.run(call_api())
 ```
 
+### Extended OpenAPI Overrides (Optional)
+
+You can optionally extend your OpenAPI operation definitions with `x-mcp` to
+customize tool names, tool descriptions, and per-parameter descriptions. If
+`x-mcp` is not present, the default FastMCP behavior is used.
+
+```json
+{
+  "paths": {
+    "/users": {
+      "get": {
+        "operationId": "list_users",
+        "summary": "List users",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "x-mcp": {
+          "name": "user_list",
+          "description": "List users with pagination and filters",
+          "parameters": {
+            "limit": { "description": "Max users to return (1-100)" }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can also generate an extended spec automatically using the built-in tool:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+    "name": "generate_extended_openapi",
+    "arguments": {
+      "spec_path": "C:\\projects\\research\\mcp\\flexfastmcp\\openapi.json",
+      "overwrite": false,
+      "as_json": true
+    }
+  }
+}
+```
+
 ## Configuration
 
 Environment variables:
