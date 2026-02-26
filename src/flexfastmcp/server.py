@@ -95,7 +95,7 @@ async def _extract_spec_from_request(request: Request) -> Tuple[Optional[str], O
     except Exception as e:
         logger.debug(f"Could not extract spec from request body: {e}")
 
-    return None, base_url
+    return spec, base_url
 
 def _base_url_from_spec(openapi_spec: Dict[str, Any]) -> Optional[str]:
     servers = openapi_spec.get("servers")
@@ -408,11 +408,20 @@ async def get_or_create_mcp(
         if meta.get('api_key'):
             headers["X-API-Key"] = meta['api_key']
 
+        async def remove_header(request1: httpx.Request):
+            request1.headers.pop("X-META", None)
+            request1.headers.pop("X-Meta", None)
+            request1.headers.pop("x-meta", None)
+            request1.headers.pop("x-base-url", None)
+
+
         if base_url:
-            client = httpx.AsyncClient(base_url=base_url, headers=headers, timeout=30.0)
+            client = httpx.AsyncClient(base_url=base_url, headers=headers, timeout=30.0,
+                                       event_hooks={"request": [remove_header]})
         else:
             logger.info("No base URL provided; relying on OpenAPI servers or absolute URLs")
-            client = httpx.AsyncClient(headers=headers, timeout=30.0)
+            client = httpx.AsyncClient(headers=headers, timeout=30.0,
+                                       event_hooks={"request": [remove_header]})
         api_name = openapi_spec.get('info', {}).get('title', 'Unknown API')
         mcp_names, mcp_component_fn = _collect_x_mcp_overrides(openapi_spec)
         from_openapi_kwargs: Dict[str, Any] = {}
